@@ -74,7 +74,11 @@ app.post('/users/update', (req, res) =>{
     res.redirect('/')
 })
 //Excluindo usúario.
-
+app.post('/users/remove/:id', async(req, res) =>{
+    const id = req.params.id
+    await User.destroy({where: {id:id}})
+    res.redirect('/')
+})
 //Renderização da home.
 app.get('/', function(req, res){
     res.render('home')
