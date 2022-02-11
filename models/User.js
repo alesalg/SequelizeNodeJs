@@ -14,5 +14,4 @@ const User = db.define('User',{
         type: DataTypes.BOOLEAN
     }
 })
-
 module.exports = User
