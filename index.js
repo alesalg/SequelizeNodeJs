@@ -47,10 +47,8 @@ app.get('/users/:id', async(req, res) =>{
 //Chamada do Editar.
 app.get('/users/edit/:id', async(req, res) =>{
     const id = req.params.id
-
-    const user = await User.findOne({raw: true, where:{id:id}})
-
-    res.render('useredit', {user})
+    const user = await User.findOne({include: Address, where:{id:id}})
+    res.render('useredit',{user: user.get({plain: true})})
 })
 app.post('/users/update', (req, res) =>{
     const id = req.body.id
@@ -79,6 +77,33 @@ app.post('/users/remove/:id', async(req, res) =>{
     const id = req.params.id
     await User.destroy({where: {id:id}})
     res.redirect('/')
+})
+// Adição de endereços com relacionamento.
+app.post('/address/create', (req, res) =>{
+    const UserId = req.body.UserId
+    const street = req.body.street
+    const number = req.body.number
+    const city = req.body.city
+
+    const address = {
+        UserId,
+        street,
+        number,
+        city
+    }
+
+    Address.create(address)
+
+    res.redirect(`/users/edit/${UserId}`)
+})
+// Exclusão de relacionamento.
+app.post('/address/delete', async(req, res) =>{
+    const UserId = req.body.UserId
+    const id = req.body.id
+
+    await Address.destroy({where: {id:id}})
+
+    res.redirect(`/users/edit/${UserId}`)
 })
 //Renderização da home.
 app.get('/', function(req, res){
