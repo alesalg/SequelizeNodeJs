@@ -5,6 +5,7 @@ const conn = require('./db/conn')
 
 //Importação do modelo para drive de Sequelize.
 const User = require('./models/User')
+const Address = require('./models/Address')
 
 app.engine('handlebars', exphbs.engine())
 app.set('view engine','handlebars')
@@ -85,6 +86,7 @@ app.get('/', function(req, res){
 })
 conn
 .sync()
+//.sync({force: true})
 .then(() =>{
     app.listen(3000)
 }).catch((err) => console.log(err))

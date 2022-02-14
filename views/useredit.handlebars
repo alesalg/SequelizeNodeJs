@@ -1,6 +1,7 @@
 <h1>Editando usuário: {{user.name}}</h1>
+<div class="container-form">
     <form action="/users/update" method="POST" class="form">
-    <input type="hidden" name="id" value="{{user.id}}">
+        <input type="hidden" name="id" value="{{user.id}}">
         <div class="form-control">
             <label for="name">Nome:</label>
             <input type="text" name="name" value="{{user.name}}">
@@ -19,3 +20,23 @@
         </div>
         <input type="submit" value="Editar">
     </form>
+</div>
+<div class="address-container">
+    <h2>Endereços: </h2>
+    <form action="/address/create" method="POST">
+        <input type="hidden" name="UserId" value="{{user.id}}">
+        <div class="form-control">
+            <label for="street">Rua: </label>
+            <input type="text" name="street" placeholder="Rua, Avenida ou Alameda">
+        </div>
+        <div class="form-control">
+            <label for="number">Numero: </label>
+            <input type="text" name="number" placeholder="Numero e Complementos">
+        </div>
+        <div class="form-control">
+            <label for="city">Cidade: </label>
+            <input type="text" name="city" placeholder="Entre com sua cidade e estado">
+        </div>
+        <input type="submit" value="Adicionar Endereço">
+    </form>
+</div>
